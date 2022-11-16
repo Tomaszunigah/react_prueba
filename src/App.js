@@ -11,8 +11,8 @@ function App() {
 
       <div> <MiApi /> </div>
 
-      <footer>
-        <h3>@TomasZuñiga</h3>
+      <footer className='footer'>
+        <h3 >@TomasZuñiga</h3>
       </footer>
       
     </div>

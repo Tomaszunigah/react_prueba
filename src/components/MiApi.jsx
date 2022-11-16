@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 //falta aplicar sort , subirlo a github, y grabar el video.
 
-
 const MiApi = () => {
   ////Estados & variables
   const [dataApi, setDataApi] = useState([]); // obtiene y guarda datos de la api.
@@ -15,7 +14,22 @@ const MiApi = () => {
 
   const [select, setSelect] = useState(""); // contiene la opcion del select
 
-  //funciones enviar data a arreglos
+  //use effect && consulta api
+  useEffect(() => {
+    consultarApi();
+  }, []);
+
+  async function consultarApi() {
+    const res = await fetch("https://digimon-api.vercel.app/api/digimon");
+    const data = await res.json();
+    setDataApi(data);
+  }
+
+  //1 .-funciones Search
+
+  const capturarInputSearch = (e) => {
+    setInputSearch(e.target.value);
+  };
   const enviarSearch = (e) => {
     e.preventDefault();
     setSearch(dataApi.filter((nombre) => nombre.name == InputSearch));
@@ -23,43 +37,25 @@ const MiApi = () => {
     setSelect("");
     setDataSelect("");
   };
-  const enviarSelect = (e) => {
-    e.preventDefault();
-    setDataSelect(dataApi.filter((level) => level.level == select))
-    setSort(false)
 
-
-  };
-  const sortByName = () => {
-    
-    setDataSelect(dataSelect.sort((a, b) => a.name.localeCompare(b.name)))
-    setSort(true)
-
-  };
-
-
-  //.-funcion capturar data en inputs
-  const capturarInputSearch = (e) => {
-    setInputSearch(e.target.value);
-  };
-
+  //2.- Funciones Select & Sort
   const capturarSelect = (e) => {
     setSelect(e.target.value);
     console.log(select);
     setSearch("");
     setInputSearch("");
   };
-  //use effect
-  useEffect(() => {
-    consultarApi();
-  }, []);
 
-  //consulta api
-  async function consultarApi() {
-    const res = await fetch("https://digimon-api.vercel.app/api/digimon");
-    const data = await res.json();
-    setDataApi(data);
-  }
+  const enviarSelect = (e) => {
+    e.preventDefault();
+    setDataSelect(dataApi.filter((level) => level.level == select));
+    setSort(false);
+  };
+
+  const sortByName = () => {
+    setDataSelect(dataSelect.sort((a, b) => a.name.localeCompare(b.name)));
+    setSort(true);
+  };
 
   return (
     <div>
