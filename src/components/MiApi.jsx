@@ -8,7 +8,7 @@ const MiApi = () => {
   const [dataApi, setDataApi] = useState([]); // obtiene y guarda datos de la api.
   const [dataSelect, setDataSelect] = useState([]); // contiene el arreglo del select
   const [search, setSearch] = useState(""); //contiene el arreglo del search
-  const [sort, setsort] = useState(false); //condicion de uso Sort
+  const [sort, setSort] = useState(false); //condicion de uso Sort
 
   //estados necesarios para inputs
   const [InputSearch, setInputSearch] = useState(""); // contiene el input del searchbar
@@ -26,14 +26,14 @@ const MiApi = () => {
   const enviarSelect = (e) => {
     e.preventDefault();
     setDataSelect(dataApi.filter((level) => level.level == select))
-    setsort(false)
+    setSort(false)
 
 
   };
   const sortByName = () => {
     
     setDataSelect(dataSelect.sort((a, b) => a.name.localeCompare(b.name)))
-    setsort(true)
+    setSort(true)
 
   };
 
